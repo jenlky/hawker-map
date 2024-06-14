@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 import SimpleMap from "@/components/SimpleMap";
 
 export default function Home() {
-  const [hawkerData, setHawkerData] = useState('')
+  const [hawkerData, setHawkerData] = useState([])
 
   useEffect(() => {
     API.getHawker().then(data => {
-      console.log(data)
       setHawkerData(data.result.records)
     })
   }, [])
@@ -18,7 +17,7 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.description}>
         Homepage
-        <SimpleMap />
+        <SimpleMap data={hawkerData} />
       </div>
     </main>
   );
