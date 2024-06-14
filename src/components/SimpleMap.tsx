@@ -1,23 +1,38 @@
-import L from "leaflet";
-import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet";
+import { LatLngTuple, LatLngBoundsLiteral } from "leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
+import MarkerWithLabel from "./MarkerWithLabel";
 
-const icon = L.icon({ iconUrl: "/images/marker-icon.png" });
+export default function SimpleMap({ data }: { data: any }) {
+  const singapore: LatLngTuple = [1.3521, 103.8198]
 
-export default function SimpleMap() {
-  const coordinates: L.LatLngExpression = [1.3521, 103.8198]
+  const today = new Date().toLocaleDateString()
+  console.log(today)
 
-  return ( 
-    <MapContainer center={coordinates} zoom={13} scrollWheelZoom={true} style={{ height: '90vh', width: '90wh' }}>
+  const hawkerData: LatLngBoundsLiteral = data.map(({ latitude_hc, longitude_hc, name, photourl, description_myenv, other_works_startdate, other_works_enddate }: 
+    { latitude_hc: string, longitude_hc: string, name: string, photourl: string, description_myenv: string, other_works_startdate: string, other_works_enddate: string }
+  ) => {
+    return { 
+      coordinates: [latitude_hc, longitude_hc],
+      name,
+      photoUrl: photourl,
+      description: description_myenv,
+      otherWorksStartDate: other_works_startdate,
+      otherWorksEndDate: other_works_enddate
+    }
+  })
+  console.log(hawkerData)
+
+  const listHawker = hawkerData.map(hawker => {
+    return <MarkerWithLabel data={hawker} />
+  })
+
+  return (
+    <MapContainer center={singapore} zoom={13} scrollWheelZoom={true} style={{ height: '90vh', width: '90wh' }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={coordinates} icon={icon}>
-        {/* <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup> */}
-        <Tooltip direction='left' offset={[0, 0]} opacity={1} permanent>Testing123</Tooltip>
-      </Marker>
+      {listHawker}
     </MapContainer>
   );
 };
