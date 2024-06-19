@@ -4,14 +4,22 @@ import MarkerWithLabel from "./MarkerWithLabel";
 import { useState } from "react";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
+interface HawkerData {
+  latitude_hc: string, 
+  longitude_hc: string, 
+  name: string, 
+  photourl: string, 
+  description_myenv: string, 
+  other_works_startdate: string, 
+  other_works_enddate: string
+}
+
 export default function SimpleMap({ data }: { data: any }) {
   const singapore: LatLngTuple = [1.3521, 103.8198]
   const today = new Date().toLocaleDateString()
   console.log(today)
 
-  const hawkerData: LatLngBoundsLiteral = data.map(({ latitude_hc, longitude_hc, name, photourl, description_myenv, other_works_startdate, other_works_enddate }: 
-    { latitude_hc: string, longitude_hc: string, name: string, photourl: string, description_myenv: string, other_works_startdate: string, other_works_enddate: string }
-  ) => {
+  const hawkerData: LatLngBoundsLiteral = data.map(({ latitude_hc, longitude_hc, name, photourl, description_myenv, other_works_startdate, other_works_enddate }: HawkerData) => {
     return { 
       coordinates: [latitude_hc, longitude_hc],
       name,
