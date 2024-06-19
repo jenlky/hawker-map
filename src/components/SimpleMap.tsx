@@ -1,8 +1,11 @@
-import { LatLngTuple, LatLngBoundsLiteral } from "leaflet";
-import { MapContainer, TileLayer } from "react-leaflet";
+import L, { LatLngTuple, LatLngBoundsLiteral } from "leaflet";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import MarkerWithLabel from "./MarkerWithLabel";
+import { useState } from "react";
+import MarkerClusterGroup from "react-leaflet-cluster";
 
 export default function SimpleMap({ data }: { data: any }) {
+  // const [zoom, setZoom] = useState(5); // initial zoom level provided for MapContainer
   const singapore: LatLngTuple = [1.3521, 103.8198]
 
   const today = new Date().toLocaleDateString()
@@ -26,13 +29,24 @@ export default function SimpleMap({ data }: { data: any }) {
     return <MarkerWithLabel data={hawker} />
   })
 
+  // const MapEvents = () => {
+  //   useMapEvents({
+  //     zoomend: () => {
+  //       setZoom(MapContainer.getZoom());
+  //     }
+  //   });
+  //   return false
+  // }
+
   return (
-    <MapContainer center={singapore} zoom={13} scrollWheelZoom={true} style={{ height: '90vh', width: '90wh' }}>
+    <MapContainer center={singapore} zoom={12} scrollWheelZoom={true} style={{ height: '90vh', width: '90wh' }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {listHawker}
+      <MarkerClusterGroup chunkedLoading>
+        {listHawker}
+      </MarkerClusterGroup>
     </MapContainer>
   );
 };
