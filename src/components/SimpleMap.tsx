@@ -11,7 +11,8 @@ interface HawkerData {
   photourl: string, 
   description_myenv: string, 
   other_works_startdate: string, 
-  other_works_enddate: string
+  other_works_enddate: string,
+  index: string
 }
 
 export default function SimpleMap({ data }: { data: any }) {
@@ -19,20 +20,20 @@ export default function SimpleMap({ data }: { data: any }) {
   const today = new Date().toLocaleDateString()
   console.log(today)
 
-  const hawkerData: LatLngBoundsLiteral = data.map(({ latitude_hc, longitude_hc, name, photourl, description_myenv, other_works_startdate, other_works_enddate }: HawkerData) => {
+  const hawkerData: HawkerData[] = data.map(({ latitude_hc, longitude_hc, name, photourl, description_myenv, other_works_startdate, other_works_enddate }: HawkerData, index: string) => {
     return { 
       coordinates: [latitude_hc, longitude_hc],
       name,
       photoUrl: photourl,
       description: description_myenv,
       otherWorksStartDate: other_works_startdate,
-      otherWorksEndDate: other_works_enddate
+      otherWorksEndDate: other_works_enddate,
+      index
     }
   })
-  console.log(hawkerData)
 
   const listHawker = hawkerData.map(hawker => {
-    return <MarkerWithLabel data={hawker} />
+    return <MarkerWithLabel key={hawker.index} data={hawker} />
   })
 
   return (
