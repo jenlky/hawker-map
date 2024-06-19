@@ -1,19 +1,8 @@
 import L, { LatLngTuple, LatLngBoundsLiteral } from "leaflet";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import MarkerWithLabel from "./MarkerWithLabel";
-import { useState } from "react";
 import MarkerClusterGroup from "react-leaflet-cluster";
-
-interface HawkerData {
-  latitude_hc: string, 
-  longitude_hc: string, 
-  name: string, 
-  photourl: string, 
-  description_myenv: string, 
-  other_works_startdate: string, 
-  other_works_enddate: string,
-  index: string
-}
+import { HawkerData } from "@/model/interfaces";
 
 export default function SimpleMap({ data }: { data: any }) {
   const singapore: LatLngTuple = [1.3521, 103.8198]
