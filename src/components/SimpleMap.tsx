@@ -5,9 +5,7 @@ import { useState } from "react";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 export default function SimpleMap({ data }: { data: any }) {
-  // const [zoom, setZoom] = useState(5); // initial zoom level provided for MapContainer
   const singapore: LatLngTuple = [1.3521, 103.8198]
-
   const today = new Date().toLocaleDateString()
   console.log(today)
 
@@ -28,15 +26,6 @@ export default function SimpleMap({ data }: { data: any }) {
   const listHawker = hawkerData.map(hawker => {
     return <MarkerWithLabel data={hawker} />
   })
-
-  // const MapEvents = () => {
-  //   useMapEvents({
-  //     zoomend: () => {
-  //       setZoom(MapContainer.getZoom());
-  //     }
-  //   });
-  //   return false
-  // }
 
   return (
     <MapContainer center={singapore} zoom={12} scrollWheelZoom={true} style={{ height: '90vh', width: '90wh' }}>
