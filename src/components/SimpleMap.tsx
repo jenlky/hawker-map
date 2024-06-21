@@ -6,17 +6,42 @@ import { HawkerData } from "@/model/interfaces";
 
 export default function SimpleMap({ data }: { data: any }) {
   const singapore: LatLngTuple = [1.3521, 103.8198]
-  const today = new Date().toLocaleDateString()
-  console.log(today)
+  const today = new Date()
+  const quarter = Math.floor((today.getMonth() + 3) / 3)
+  console.log(data)
 
-  const hawkerData: HawkerData[] = data.map(({ latitude_hc, longitude_hc, name, photourl, description_myenv, other_works_startdate, other_works_enddate }: HawkerData, index: string) => {
-    return { 
+  const hawkerData: any[] = data.map((hawker: any, index: string) => {
+    const { latitude_hc, longitude_hc, name, photourl, description_myenv, remarks_other_works, other_works_startdate, other_works_enddate } = hawker
+    let startDateString = hawker[`q${quarter}_cleaningstartdate`]
+    let endDateString = hawker[`q${quarter}_cleaningenddate`]
+    let startDate
+    let endDate
+    let isClosed = false
+
+    // TBC and NA is not a good check
+    if (startDateString !== "TBC" && endDateString !== "TBC" && other_works_startdate === "NA" && other_works_enddate === "NA") {
+      startDateString = startDateString.split('/')
+      endDateString = endDateString.split('/')
+
+      startDate = new Date(+startDateString[2], startDateString[1] - 1, +startDateString[0])
+      startDate.setUTCHours(0,0,0,0)
+      endDate = new Date(+endDateString[2], endDateString[1] - 1, +endDateString[0])
+      endDate.setUTCHours(23,59,59,999)
+  
+      isClosed = today.getTime() >= startDate.getTime() && today.getTime() <= endDate.getTime()
+    }
+    
+    return {
       coordinates: [latitude_hc, longitude_hc],
       name,
       photoUrl: photourl,
       description: description_myenv,
+      remarksOtherWork: remarks_other_works,
       otherWorksStartDate: other_works_startdate,
       otherWorksEndDate: other_works_enddate,
+      cleaningStartDate: startDate ? startDate : startDateString,
+      cleaningEndDate: endDate ? endDate: endDateString,
+      isClosed,
       index
     }
   })
