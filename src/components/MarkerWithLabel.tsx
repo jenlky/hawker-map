@@ -1,28 +1,36 @@
 import L from "leaflet";
-import { useState } from "react";
-import { Marker, Tooltip, useMapEvent } from "react-leaflet";
+import { Marker, Tooltip } from "react-leaflet";
+import styles from "./MarkerWithLabel.module.css";
 
 export default function MarkerWithLabel({ data }: { data: any }) {
-  const [isPermanent, setIsPermanent] = useState(false)
   const blueMarker = L.icon({ iconUrl: "/images/marker-icon.png" });
   const redMarker = L.icon({ iconUrl: "/images/marker-icon-red.png" });
 
-  const { coordinates, name, photoUrl, description, otherWorksStartDate, otherWorksEndDate } = data
+  const { coordinates, name, photoUrl, description, remarks, closureReasons,
+    otherWorksStartDate, otherWorksEndDate, cleaningStartDate, cleaningEndDate, isClosed 
+  } = data
 
-  // const MapEvent = () => {
-  //   const map = useMapEvent('moveend', () => {
-  //     const zoom = map.getZoom()
-  //     console.log('getZoom', zoom)
-  //     zoom >= 16 ? setIsPermanent(true) : setIsPermanent(false)
-  //   })
-  //   console.log('isPermanent', isPermanent)
+  const displayDateInDDMMYYYY = (date: Date) => {
+    return date.toLocaleDateString('en-GB')
+  }
 
-  //   return null
-  // } 
+  const whyIsItClosed = () => {
+    if (remarks === 'Cleaning') {
+      return ` ${displayDateInDDMMYYYY(cleaningStartDate)} to ${displayDateInDDMMYYYY(cleaningEndDate)} (${remarks})`
+    } else if (remarks !== "Cleaning" && isClosed) {
+      return ` ${displayDateInDDMMYYYY(otherWorksStartDate)} to ${displayDateInDDMMYYYY(otherWorksEndDate)} (${remarks})`
+    }
+    return
+  }
 
   return (
-    <Marker position={coordinates} icon={blueMarker}>
-      <Tooltip direction='left' offset={[0, 0]} opacity={1} permanent={true}>{ name }</Tooltip>
+    <Marker position={coordinates} icon={isClosed ? redMarker : blueMarker}>
+      <Tooltip direction='left' offset={[0, 0]} opacity={1} permanent={true} className={styles.tooltipLabel}>
+        <p>{ name }</p>
+        <p>{ closureReasons }</p>
+        <p>{isClosed ? 'Closure Date' : ''}<span>{ whyIsItClosed() }</span></p>
+        <p>{isClosed ? 'Remarks ' : ''}<span>{ remarks }</span></p>
+      </Tooltip>
     </Marker>
   )
 }

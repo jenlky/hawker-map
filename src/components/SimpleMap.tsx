@@ -15,7 +15,7 @@ export default function SimpleMap({ data }: { data: any }) {
     return new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0])
   }
 
-  const hawkerData: any[] = data.map((hawker: any, index: string) => {
+  const hawkerData: any[] = data.map((hawker: HawkerData, index: string) => {
     const { latitude_hc, longitude_hc, name, photourl, description_myenv, remarks_other_works, other_works_startdate, other_works_enddate } = hawker
     let startDateString = hawker[`q${quarter}_cleaningstartdate`]
     let endDateString = hawker[`q${quarter}_cleaningenddate`]
@@ -25,6 +25,7 @@ export default function SimpleMap({ data }: { data: any }) {
     let otherWorksEndDate
     let isClosed = false
     let remarks = ''
+    let closureReasons = ''
 
     // TBC and NA is not a good check
     if (startDateString !== "TBC" && endDateString !== "TBC" && other_works_startdate === "NA" && other_works_enddate === "NA") {
@@ -34,23 +35,29 @@ export default function SimpleMap({ data }: { data: any }) {
       endDate.setUTCHours(23,59,59,999)
   
       isClosed = today.getTime() >= startDate.getTime() && today.getTime() <= endDate.getTime()
-      remarks = "Cleaning"
+      closureReasons = "OPEN"
+      if (isClosed) { 
+        remarks = "Cleaning"
+        closureReasons = "CLOSED FOR CLEANING"
+      }
     } else if (other_works_startdate !== "NA" && other_works_enddate !== "NA") {
       otherWorksStartDate = convertDateStringToDate(other_works_startdate)
       otherWorksStartDate.setUTCHours(0,0,0,0)
       otherWorksEndDate = convertDateStringToDate(other_works_enddate)
       otherWorksEndDate.setUTCHours(23,59,59,999)
 
-      remarks = remarks_other_works
       isClosed = today.getTime() >= otherWorksStartDate.getTime() && today.getTime() <= otherWorksEndDate.getTime()
+      remarks = remarks_other_works
+      closureReasons = 'CLOSED FOR OTHER WORKS'
     }
-    
+
     return {
       coordinates: [latitude_hc, longitude_hc],
       name,
       photoUrl: photourl,
       description: description_myenv,
       remarks,
+      closureReasons,
       otherWorksStartDate,
       otherWorksEndDate,
       cleaningStartDate: startDate ? startDate : startDateString,
