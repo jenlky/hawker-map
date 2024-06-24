@@ -1,3 +1,8 @@
+.tooltipLabel {
+  text-wrap: wrap;
+  width: 14rem;
+}
+
 .tooltipLabel p {
   font-weight: 800;
 }
@@ -8,8 +13,6 @@
 
 .tooltipLabel p:first-child {
   text-decoration: underline;
-  text-wrap: wrap;
-  width: 14rem;
 }
 
 .tooltipLabel p:nth-child(2) {

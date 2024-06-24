@@ -48,7 +48,9 @@ export default function SimpleMap({ data }: { data: any }) {
 
       isClosed = today.getTime() >= otherWorksStartDate.getTime() && today.getTime() <= otherWorksEndDate.getTime()
       remarks = remarks_other_works
-      closureReasons = 'CLOSED FOR OTHER WORKS'
+      if (isClosed) { 
+        closureReasons = "CLOSED FOR OTHER WORKS"
+      }
     }
 
     return {
