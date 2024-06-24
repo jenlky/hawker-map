@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        Homepage
+        <p>Welcome to Hawker Map! This website aims to show all the hawkers in Singapore and their closure dates.</p>
       </div>
       <SimpleMap data={hawkerData} />
     </main>
