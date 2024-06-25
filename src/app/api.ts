@@ -10,7 +10,20 @@ export const API = {
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
-      return await response.json();
+      const data = await response.json();
+      const pages = Math.ceil(data.result.total/100)
+      const records = data.result.records
+      let totalRecords = []
+
+      let counter = 1
+      while (counter < pages) {
+        const response = await fetch(url + `&offset=${100 * counter}`)
+        const data = await response.json();
+        totalRecords = records.concat(data.result.records)
+        counter++
+      }
+
+      return totalRecords
     } catch (error) {
       console.error("Error fetching data:", error);
     }

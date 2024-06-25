@@ -8,8 +8,8 @@ export default function Home() {
   const [hawkerData, setHawkerData] = useState([])
 
   useEffect(() => {
-    API.getHawker().then(data => {
-      setHawkerData(data.result.records)
+    API.getHawker().then(records => {
+      setHawkerData(records)
     })
   }, [])
 
