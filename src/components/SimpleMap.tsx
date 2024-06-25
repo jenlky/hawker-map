@@ -15,7 +15,8 @@ export default function SimpleMap({ data }: { data: any }) {
     return new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0])
   }
 
-  const hawkerData: any[] = data.map((hawker: HawkerData, index: string) => {
+  // HawkerData throws ts7053 error
+  const hawkerData: any[] = data.map((hawker: any, index: string) => {
     const { latitude_hc, longitude_hc, name, photourl, description_myenv, remarks_other_works, other_works_startdate, other_works_enddate } = hawker
     let startDateString = hawker[`q${quarter}_cleaningstartdate`]
     let endDateString = hawker[`q${quarter}_cleaningenddate`]
