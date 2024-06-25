@@ -108,6 +108,28 @@
 .logo {
   position: relative;
 }
+
+.legendContainer {
+  display: flex;
+  align-self: flex-end;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.legendContainer legend {
+  display: flex;
+  align-items: center;
+}
+
+.legend img {
+  font-size: 7px;
+}
+
+.legendText {
+  margin-left: 4px;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
