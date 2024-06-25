@@ -25,14 +25,16 @@ export default function MarkerWithLabel({ data }: { data: any }) {
 
   return (
     <Marker position={coordinates} icon={isClosed ? redMarker : blueMarker}>
-      <Tooltip direction='left' offset={[0, 0]} opacity={1} permanent={false} className={styles.tooltipLabel}>
+      <Tooltip direction='left' offset={[0, 0]} opacity={1} permanent={true} className={styles.tooltipLabel}>
         <p>{ name }</p>
         <p>{ closureReasons }</p>
         <p>{isClosed ? 'Closure Date' : ''}<span>{ whyIsItClosed() }</span></p>
-        <p>{isClosed ? (
-          `Remarks ${<span>{ remarks }</span>}`
-        ) : ''}
-        </p>
+        {isClosed ? 
+          <>
+            <p>Remarks <span>{ remarks }</span></p>
+          </> 
+          : ''
+        }
       </Tooltip>
     </Marker>
   )
