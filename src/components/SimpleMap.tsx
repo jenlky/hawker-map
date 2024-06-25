@@ -31,9 +31,9 @@ export default function SimpleMap({ data }: { data: any }) {
     // TBC and NA is not a good check
     if (startDateString !== "TBC" && endDateString !== "TBC" && other_works_startdate === "NA" && other_works_enddate === "NA") {
       startDate = convertDateStringToDate(startDateString)
-      startDate.setUTCHours(0,0,0,0)
+      startDate.setHours(0,0,0,0)
       endDate = convertDateStringToDate(endDateString)
-      endDate.setUTCHours(23,59,59,999)
+      endDate.setHours(23,59,59,999)
   
       isClosed = today.getTime() >= startDate.getTime() && today.getTime() <= endDate.getTime()
       closureReasons = "OPEN"
@@ -43,9 +43,9 @@ export default function SimpleMap({ data }: { data: any }) {
       }
     } else if (other_works_startdate !== "NA" && other_works_enddate !== "NA") {
       otherWorksStartDate = convertDateStringToDate(other_works_startdate)
-      otherWorksStartDate.setUTCHours(0,0,0,0)
+      otherWorksStartDate.setHours(0,0,0,0)
       otherWorksEndDate = convertDateStringToDate(other_works_enddate)
-      otherWorksEndDate.setUTCHours(23,59,59,999)
+      otherWorksEndDate.setHours(23,59,59,999)
 
       isClosed = today.getTime() >= otherWorksStartDate.getTime() && today.getTime() <= otherWorksEndDate.getTime()
       remarks = remarks_other_works
@@ -80,9 +80,7 @@ export default function SimpleMap({ data }: { data: any }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <MarkerClusterGroup chunkedLoading>
         {listHawker}
-      </MarkerClusterGroup>
     </MapContainer>
   );
 };
