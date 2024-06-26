@@ -2,11 +2,18 @@
 import styles from "./page.module.css";
 import { API } from "./api";
 import { useEffect, useState } from "react";
-import SimpleMap from "@/components/SimpleMap";
-import Legend from "@/components/Legend";
+import dynamic from "next/dynamic";
 
 export default function Home() {
   const [hawkerData, setHawkerData] = useState([])
+
+  const SimpleMap = dynamic(() => import('../components/SimpleMap'), {
+    ssr: false
+  })
+
+  const Legend = dynamic(() => import('../components/Legend'), {
+    ssr: false
+  })
 
   useEffect(() => {
     API.getHawker().then(records => {
