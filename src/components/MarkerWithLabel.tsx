@@ -16,9 +16,9 @@ export default function MarkerWithLabel({ data }: { data: any }) {
 
   const whyIsItClosed = () => {
     if (remarks === 'Cleaning') {
-      return ` ${displayDateInDDMMYYYY(cleaningStartDate)} to ${displayDateInDDMMYYYY(cleaningEndDate)} (${remarks})`
+      return ` ${displayDateInDDMMYYYY(cleaningStartDate)} to ${displayDateInDDMMYYYY(cleaningEndDate)} (Cleaning)`
     } else if (remarks !== "Cleaning" && isClosed) {
-      return ` ${displayDateInDDMMYYYY(otherWorksStartDate)} to ${displayDateInDDMMYYYY(otherWorksEndDate)} (${remarks})`
+      return ` ${displayDateInDDMMYYYY(otherWorksStartDate)} to ${displayDateInDDMMYYYY(otherWorksEndDate)} (Other Works)`
     }
     return
   }
