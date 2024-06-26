@@ -130,7 +130,7 @@
 /* Mobile */
 @media (max-width: 700px) {
   .main {
-    padding: 2rem 2rem;
+    padding: 1rem 2rem;
   }
 
   .content {
@@ -173,14 +173,12 @@
   .description div {
     display: flex;
     justify-content: center;
-    position: fixed;
     width: 100%;
   }
 
   .description p {
     align-items: center;
     inset: 0 0 auto;
-    padding: 2rem 1rem 1.4rem;
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
