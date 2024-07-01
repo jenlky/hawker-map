@@ -3,9 +3,12 @@ import styles from "./page.module.css";
 import { API } from "./api";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import React from "react";
 
 export default function Home() {
   const [hawkerData, setHawkerData] = useState([])
+  const [location, setLocation] = useState([])
+  const [websiteData, setWebsiteData] = useState([])
 
   const SimpleMap = dynamic(() => import('../components/SimpleMap'), {
     ssr: false
@@ -16,8 +19,10 @@ export default function Home() {
   })
 
   useEffect(() => {
-    API.getHawker().then(records => {
-      setHawkerData(records)
+    API.getHawker().then(records => setHawkerData(records))
+    API.getCurrentLocation().then((location: any) => setLocation(location))
+    API.scrape("Ang Mo Kio Ave 1 Blk 226D (Kebun Baru Market and Food Centre)").then(records => {
+      return
     })
   }, [])
 

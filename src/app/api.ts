@@ -26,6 +26,18 @@ export const API = {
       console.error("Error fetching data:", error);
     }
   },
+  getCurrentLocation: async function () {
+    const successfulCallback = (position: any) => {
+      console.log(position)
+      return [position.coords.latitude, position.coords.longitude]
+    }
+
+    const errorCallback = (err: any) => {
+      console.error(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    return navigator.geolocation.getCurrentPosition(successfulCallback, errorCallback, { timeout: 10000 })
+  },
   scrape: async function (name: any) {
     try {
       const url = `http://localhost:4000/scrape?name=${name}`
