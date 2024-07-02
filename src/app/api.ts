@@ -1,3 +1,5 @@
+import { GeolocationPosition } from "@/model/interfaces";
+
 export const API = {
   getHawker: async function () {
     try {
@@ -27,16 +29,18 @@ export const API = {
     }
   },
   getCurrentLocation: async function () {
-    const successfulCallback = (position: any) => {
-      console.log(position)
-      return [position.coords.latitude, position.coords.longitude]
-    }
+    try {
+      const position: GeolocationPosition = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(position => resolve(position), error => reject(error))
+      })
 
-    const errorCallback = (err: any) => {
-      console.error(`ERROR(${err.code}): ${err.message}`);
+      if (position) {
+        return [position.coords.latitude, position.coords.longitude]
+      }
+      return null
+    } catch (error: any) {
+      console.error(`ERROR(${error.code}): ${error.message}`);
     }
-
-    return navigator.geolocation.getCurrentPosition(successfulCallback, errorCallback, { timeout: 10000 })
   },
   scrape: async function (name: any) {
     try {

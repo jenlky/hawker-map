@@ -28,3 +28,11 @@ export interface HawkerData {
   status: string,
   _id: number
 }
+
+export interface GeolocationPosition {
+  coords: {
+    latitude: number,
+    longitude: number
+  },
+  timestamp: number
+}

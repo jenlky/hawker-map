@@ -4,11 +4,10 @@ import MarkerWithLabel from "./MarkerWithLabel";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { HawkerData } from "@/model/interfaces";
 
-export default function SimpleMap({ data }: { data: any }) {
-  const singapore: LatLngTuple = [1.3521, 103.8198]
+export default function SimpleMap({ data, location }: { data: any, location: any }) {
+  console.log(data)
   const today = new Date()
   const quarter = Math.floor((today.getMonth() + 3) / 3)
-  console.log(data)
 
   const convertDateStringToDate = (dateInMMDDYYYY: string) => {
     const dateParts = dateInMMDDYYYY.split('/')
@@ -75,7 +74,7 @@ export default function SimpleMap({ data }: { data: any }) {
   })
 
   return (
-    <MapContainer center={singapore} zoom={12} scrollWheelZoom={true} style={{ height: '80vh', width: '90wh' }}>
+    <MapContainer center={location} zoom={12} scrollWheelZoom={true} style={{ height: '80vh', width: '90wh' }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
