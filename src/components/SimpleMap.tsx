@@ -3,11 +3,14 @@ import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import MarkerWithLabel from "./MarkerWithLabel";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { HawkerData } from "@/model/interfaces";
+import { useState } from "react";
+import Hawker from "./Hawker";
 
 export default function SimpleMap({ data, location }: { data: any, location: any }) {
   console.log(data)
   const today = new Date()
   const quarter = Math.floor((today.getMonth() + 3) / 3)
+  const [displayWhichHawker, setDisplayWhichHawker] = useState('')
 
   const convertDateStringToDate = (dateInMMDDYYYY: string) => {
     const dateParts = dateInMMDDYYYY.split('/')
@@ -25,7 +28,7 @@ export default function SimpleMap({ data, location }: { data: any, location: any
     let otherWorksEndDate
     let isClosed = false
     let remarks = ''
-    let closureReasons = ''
+    let closureReasons = 'OPEN'
 
     // TBC and NA is not a good check
     if (startDateString !== "TBC" && endDateString !== "TBC" && other_works_startdate === "NA" && other_works_enddate === "NA") {
@@ -35,7 +38,6 @@ export default function SimpleMap({ data, location }: { data: any, location: any
       endDate.setHours(23,59,59,999)
   
       isClosed = today.getTime() >= startDate.getTime() && today.getTime() <= endDate.getTime()
-      closureReasons = "OPEN"
       if (isClosed) { 
         remarks = "Cleaning"
         closureReasons = "CLOSED FOR CLEANING"
@@ -70,7 +72,7 @@ export default function SimpleMap({ data, location }: { data: any, location: any
   })
 
   const listHawker = hawkerData.map(hawker => {
-    return <MarkerWithLabel key={hawker.index} data={hawker} />
+    return <MarkerWithLabel key={hawker.index} data={hawker} setDisplayWhichHawker={setDisplayWhichHawker} />
   })
 
   return (
@@ -80,6 +82,7 @@ export default function SimpleMap({ data, location }: { data: any, location: any
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {listHawker}
+      <Hawker hawker={displayWhichHawker} />
     </MapContainer>
   );
 };
