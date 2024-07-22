@@ -8,13 +8,21 @@ import React from "react";
 export default function Home() {
   const [hawkerData, setHawkerData] = useState([])
   const [location, setLocation]: [number[], Dispatch<SetStateAction<number[]>>] = useState([1.3521, 103.8198])
-  const [websiteData, setWebsiteData] = useState([])
+  const [displayWhichHawker, setDisplayWhichHawker] = useState('')
+
+  // const toggleHawker = React.useCallback((newValue: any) => {
+  //   setDisplayWhichHawker(newValue)
+  // }, [])
 
   const SimpleMap = dynamic(() => import('../components/SimpleMap'), {
     ssr: false
   })
 
   const Legend = dynamic(() => import('../components/Legend'), {
+    ssr: false
+  })
+
+  const Hawker = dynamic(() => import('../components/Hawker'), {
     ssr: false
   })
 
@@ -26,6 +34,7 @@ export default function Home() {
       }
     })
     // API.scrape("Ang Mo Kio Ave 1 Blk 226D (Kebun Baru Market and Food Centre)").then(records => {
+    //   console.log(records)
     //   return
     // })
   }, [])
@@ -35,8 +44,9 @@ export default function Home() {
       <div className={styles.description}>
         <p>Welcome to Hawker Map! This website aims to show all the hawkers in Singapore and their closure dates.</p>
       </div>
-      <SimpleMap data={hawkerData} location={location} />
+      <SimpleMap data={hawkerData} location={location} setDisplayWhichHawker={setDisplayWhichHawker} />
       <Legend />
+      <Hawker hawker={displayWhichHawker} />
     </main>
   );
 }

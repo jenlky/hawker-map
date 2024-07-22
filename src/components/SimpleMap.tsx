@@ -6,11 +6,10 @@ import { HawkerData } from "@/model/interfaces";
 import { useState } from "react";
 import Hawker from "./Hawker";
 
-export default function SimpleMap({ data, location }: { data: any, location: any }) {
+export default function SimpleMap({ data, location, setDisplayWhichHawker }: { data: any, location: any, setDisplayWhichHawker: any }) {
   console.log(data)
   const today = new Date()
   const quarter = Math.floor((today.getMonth() + 3) / 3)
-  const [displayWhichHawker, setDisplayWhichHawker] = useState('')
 
   const convertDateStringToDate = (dateInMMDDYYYY: string) => {
     const dateParts = dateInMMDDYYYY.split('/')
@@ -82,7 +81,6 @@ export default function SimpleMap({ data, location }: { data: any, location: any
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {listHawker}
-      <Hawker hawker={displayWhichHawker} />
     </MapContainer>
   );
 };

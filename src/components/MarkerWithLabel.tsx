@@ -23,12 +23,12 @@ export default function MarkerWithLabel({ data, setDisplayWhichHawker }: { data:
     return
   }
 
-  const tooltipOpenHandler = (e: any) => {
-    console.log('tooltipOpenHandler')
-    console.log(e)
-    const name = e.tooltip.options.children[0].props.children
-    console.log(name)
-  }
+  // const tooltipOpenHandler = (e: any) => {
+  //   console.log('tooltipOpenHandler')
+  //   console.log(e)
+  //   const name = e.tooltip.options.children[0].props.children
+  //   console.log(name)
+  // }
 
   const clickHandler = (e: any) => {
     console.log('clickHandler')
@@ -38,7 +38,7 @@ export default function MarkerWithLabel({ data, setDisplayWhichHawker }: { data:
   }
   
   return (
-    <Marker position={coordinates} icon={isClosed ? redMarker : blueMarker} eventHandlers={{ tooltipopen: tooltipOpenHandler, click: clickHandler }}>
+    <Marker position={coordinates} icon={isClosed ? redMarker : blueMarker} eventHandlers={{ click: clickHandler }}>
       <Tooltip direction='left' offset={[0, 0]} opacity={1} permanent={false} className={styles.tooltipLabel}>
         <p>{ name }</p>
         <p>{ closureReasons }</p>
