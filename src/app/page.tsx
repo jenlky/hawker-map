@@ -10,10 +10,6 @@ export default function Home() {
   const [location, setLocation]: [number[], Dispatch<SetStateAction<number[]>>] = useState([1.3521, 103.8198])
   const [displayWhichHawker, setDisplayWhichHawker] = useState('')
 
-  // const toggleHawker = React.useCallback((newValue: any) => {
-  //   setDisplayWhichHawker(newValue)
-  // }, [])
-
   const SimpleMap = dynamic(() => import('../components/SimpleMap'), {
     ssr: false
   })
@@ -33,10 +29,6 @@ export default function Home() {
         setLocation(location)
       }
     })
-    // API.scrape("Ang Mo Kio Ave 1 Blk 226D (Kebun Baru Market and Food Centre)").then(records => {
-    //   console.log(records)
-    //   return
-    // })
   }, [])
 
   return (
