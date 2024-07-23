@@ -1,7 +1,14 @@
-export default function Hawker ({ hawker }: { hawker: any }) {
+// use global style
+export default async function Hawker ({ hawker }: { hawker: any }) {
   return (
     <div>
-      test hawker { hawker }
+      <div className='food-recommendations-header'>
+        <h1>{ hawker }</h1>
+        <h2>Food recommendations</h2>
+      </div>
+      <div>
+
+      </div>
     </div>
   )
 }
