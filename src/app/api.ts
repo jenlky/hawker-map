@@ -43,13 +43,15 @@ export const API = {
     }
   },
   scrape: async function (name: any) {
+    console.log('name', name)
+
     try {
       const url = `http://localhost:4000/scrape?name=${name}`
-      const response: any = await fetch(url)
+      const response = await fetch(url)
       console.log('response', response)
 
       return response
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error scraping data:", error);
     }
   }

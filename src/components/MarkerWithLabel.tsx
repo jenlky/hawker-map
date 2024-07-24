@@ -1,8 +1,9 @@
 import L from "leaflet";
 import { Marker, Tooltip } from "react-leaflet";
 import styles from "./MarkerWithLabel.module.css";
+import { API } from "@/app/api";
 
-export default function MarkerWithLabel({ data, setDisplayWhichHawker }: { data: any, setDisplayWhichHawker: any }) {
+export default function MarkerWithLabel({ data, setDisplayWhichHawker, setFoodRecommendations }: { data: any, setDisplayWhichHawker: any, setFoodRecommendations: any }) {
   const blueMarker = L.icon({ iconUrl: "/images/marker-icon.png" });
   const redMarker = L.icon({ iconUrl: "/images/marker-icon-red.png" });
 
@@ -30,11 +31,16 @@ export default function MarkerWithLabel({ data, setDisplayWhichHawker }: { data:
   //   console.log(name)
   // }
 
-  const clickHandler = (e: any) => {
-    console.log('clickHandler')
+  const clickHandler = async (e: any) => {
     const name = e.target._tooltip.options.children[0].props.children
     setDisplayWhichHawker(name)
-    console.log(name)
+
+    await API.scrape(name).then(res => {
+      return res?.json()
+    }).then((records: any) => {
+      console.log('records', records)
+      setFoodRecommendations(records)
+    })
   }
   
   return (

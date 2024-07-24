@@ -1,5 +1,5 @@
 // use global style
-export default async function Hawker ({ hawker }: { hawker: any }) {
+export default function Hawker ({ hawker, foodRecommendations }: { hawker: any, foodRecommendations: any }) {
   return (
     <div>
       <div className='food-recommendations-header'>
@@ -7,7 +7,14 @@ export default async function Hawker ({ hawker }: { hawker: any }) {
         <h2>Food recommendations</h2>
       </div>
       <div>
-
+        {foodRecommendations.map((record: any, index: number) => {
+          return (
+            <div key={index}>
+              <p>{record.title}</p>
+              <p>{record.text}</p>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

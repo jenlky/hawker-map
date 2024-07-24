@@ -1,12 +1,12 @@
 import puppeteer from 'puppeteer';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { promises as fs } from 'fs';
 import cors from 'cors'
 
 const app = express();
 app.use(cors())
 
-app.get('/scrape', async (req: any, res: any) => {
+app.get('/scrape', async (req: Request, res: Response) => {
     console.log('req', req.query.name)
 
     const browser = await puppeteer.launch();
@@ -42,7 +42,7 @@ app.get('/scrape', async (req: any, res: any) => {
 
     console.log(recommendations);
     await browser.close();
-    return res.json(recommendations)
+    return res.status(200).json(recommendations)
 })
 
 async function read () {

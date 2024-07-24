@@ -6,7 +6,7 @@ import { HawkerData } from "@/model/interfaces";
 import { useState } from "react";
 import Hawker from "./Hawker";
 
-export default function SimpleMap({ data, location, setDisplayWhichHawker }: { data: any, location: any, setDisplayWhichHawker: any }) {
+export default function SimpleMap({ data, location, setDisplayWhichHawker, setFoodRecommendations }: { data: any, location: any, setDisplayWhichHawker: any, setFoodRecommendations: any }) {
   console.log(data)
   const today = new Date()
   const quarter = Math.floor((today.getMonth() + 3) / 3)
@@ -71,7 +71,7 @@ export default function SimpleMap({ data, location, setDisplayWhichHawker }: { d
   })
 
   const listHawker = hawkerData.map(hawker => {
-    return <MarkerWithLabel key={hawker.index} data={hawker} setDisplayWhichHawker={setDisplayWhichHawker} />
+    return <MarkerWithLabel key={hawker.index} data={hawker} setDisplayWhichHawker={setDisplayWhichHawker} setFoodRecommendations={setFoodRecommendations} />
   })
 
   return (
