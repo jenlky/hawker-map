@@ -1,14 +1,14 @@
 import puppeteer from 'puppeteer';
 import express from 'express';
-import fs from 'fs'
+import { promises as fs } from 'fs';
+import cors from 'cors'
 
 const app = express();
+app.use(cors())
 
 app.get('/scrape', async (req: any, res: any) => {
+    console.log('req', req.query.name)
 
-})
-
-async function start () {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
@@ -42,8 +42,15 @@ async function start () {
 
     console.log(recommendations);
     await browser.close();
-}
+    return res.json(recommendations)
+})
 
-start()
+async function read () {
+    const file = await fs.readFile(process.cwd() + '/sample.txt', 'utf8');
+    // console.log(file)
+    const stringified = JSON.stringify(file)
+    const data = JSON.parse(stringified);
+    // console.log(data)
+}
 
 app.listen(4000);
