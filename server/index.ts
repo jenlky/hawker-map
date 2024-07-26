@@ -12,6 +12,7 @@ app.get('/scrape', async (req: Request, res: Response) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
+    // https://sethlui.com/bukit-timah-market-food-centre-last-hurrah-singapore/
     await page.goto('https://sethlui.com/toa-payoh-lorong-8-market-food-centre-guide-singapore/');
     await page.setViewport({width: 1080, height: 1024});
     await page.waitForSelector('h2');
@@ -26,15 +27,22 @@ app.get('/scrape', async (req: Request, res: Response) => {
 
             // Get the text of the paragraph following the header
             let text = '';
+            let image = '';
             let sibling: any = header.nextElementSibling;
             while (sibling && sibling.tagName.toLowerCase() !== 'h2') {
                 if (sibling.tagName.toLowerCase() === 'p') {
                 text += sibling.innerText + '\n';
                 }
+                if (sibling.tagName.toLowerCase() === 'figure') {
+                    const img = sibling.querySelector('img');
+                    if (img) {
+                      image = img.src;
+                    }
+                }
                 sibling = sibling.nextElementSibling;
             }
 
-            return { title, text: text.trim() };
+            return { title, text: text.trim(), image };
         });
 
         return recommendationsList;

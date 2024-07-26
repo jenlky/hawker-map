@@ -127,6 +127,22 @@ a {
   font-weight: 600;
 }
 
+.food-recommendations img {
+  width: 20rem;
+}
+
+@media (min-width: 500px) {
+  .food-recommendations img {
+    width: 30rem;
+  }
+}
+
+@media (min-width: 700px) {
+  .food-recommendations img {
+    width: 40rem;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

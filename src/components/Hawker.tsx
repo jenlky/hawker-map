@@ -12,6 +12,7 @@ export default function Hawker ({ hawker, foodRecommendations }: { hawker: any, 
             <div key={index} className="food-recommendations">
               <p>{record.title}</p>
               <p>{record.text}</p>
+              {record.image && <img src={record.image}></img>}
             </div>
           )
         })}
