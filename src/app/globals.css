@@ -119,6 +119,14 @@ a {
   }
 }
 
+.food-recommendations {
+  margin-bottom: 1rem;
+}
+
+.food-recommendations p:first-child {
+  font-weight: 600;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

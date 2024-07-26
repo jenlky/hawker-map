@@ -9,7 +9,7 @@ export default function Hawker ({ hawker, foodRecommendations }: { hawker: any, 
       <div>
         {foodRecommendations.map((record: any, index: number) => {
           return (
-            <div key={index}>
+            <div key={index} className="food-recommendations">
               <p>{record.title}</p>
               <p>{record.text}</p>
             </div>
