@@ -107,7 +107,19 @@ a {
   text-decoration: none;
 }
 
+.food-recommendations {
+  width: inherit;
+}
+
+@media (min-width: 1024px) {
+  .food-recommendations {
+    width: 56rem;
+  }
+}
+
 .food-recommendations-header {
+  margin-top: 0.8rem;
+
   h1 {
     font-size: 1.4rem;
     text-wrap: wrap;
@@ -116,30 +128,31 @@ a {
   
   h2 {
     font-size: 1.2rem;
+    text-decoration: underline;
   }
 }
 
-.food-recommendations {
+@media (min-width: 768px) {
+  .food-recommendations-header h1 {
+    max-width: max-content;
+  }
+}
+
+.food-list-items {
   margin-bottom: 1rem;
-}
 
-.food-recommendations p:first-child {
-  font-weight: 600;
-}
+  p:first-child {
+    font-weight: 700;
+  }
 
-.food-recommendations img {
-  width: 20rem;
+  img {
+    width: 20rem;
+  }
 }
 
 @media (min-width: 500px) {
-  .food-recommendations img {
+  .food-list-items img {
     width: 30rem;
-  }
-}
-
-@media (min-width: 700px) {
-  .food-recommendations img {
-    width: 40rem;
   }
 }
 
