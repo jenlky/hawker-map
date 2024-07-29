@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <p>Welcome to Hawker Map! This website aims to show all the hawkers in Singapore and their closure dates.</p>
+        <p>Welcome to Hawker Map! This website shows which hawker centres in Singapore are open, and the reasons for their closure if they're not open. Upon clicking, it also shows food recommendations from food blogs.</p>
       </div>
       <SimpleMap data={hawkerData} location={location} setDisplayWhichHawker={setDisplayWhichHawker} setFoodRecommendations={setFoodRecommendations} />
       <Legend />
