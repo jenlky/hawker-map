@@ -54,6 +54,17 @@ export const API = {
     } catch (error: any) {
       console.error("Error scraping data:", error);
     }
-  }
+  },
+  google: async function (name: any) {
+    try {
+      const url = `http://localhost:4000/google/search?name=${name}`
+      const response = await fetch(url)
+      console.log('response', response)
+
+      return response
+    } catch (error: any) {
+      console.error("Error fetching google search results:", error);
+    }
+  },
 }
 

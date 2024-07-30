@@ -35,7 +35,7 @@ export default function MarkerWithLabel({ data, setDisplayWhichHawker, setFoodRe
     const name = e.target._tooltip.options.children[0].props.children
     setDisplayWhichHawker(name)
 
-    await API.scrape(name).then(res => {
+    await API.google(name).then(res => {
       return res?.json()
     }).then((records: any) => {
       console.log('records', records)
