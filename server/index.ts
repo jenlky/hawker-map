@@ -102,49 +102,49 @@ async function scrapeSethLui(url: string) {
 
 async function scrapeEatbook(url: string) {
     try {
-      // Fetch the HTML of the webpage
-      const { data: html } = await axios.get(url);
-  
-      // Load the HTML into Cheerio
-      const $ = cheerio.load(html);
-  
-      // Array to store the recommendations
-      const recommendations: any = [];
-  
-      // Extract the date
-      const date = $('meta[property="article:published_time"]').attr('content');
+        // Fetch the HTML of the webpage
+        const { data: html } = await axios.get(url);
+    
+        // Load the HTML into Cheerio
+        const $ = cheerio.load(html);
+    
+        // Array to store the recommendations
+        const recommendations: any = [];
+    
+        // Extract the date
+        const date = $('meta[property="article:published_time"]').attr('content');
         recommendations.push({ date })
 
-      // Extract each recommendation
-      $('h3').each((i, element) => {
-        const header = $(element).text().trim();
-        let text = '';
-        let image = '';
-  
-        // Get the text of the paragraphs following the header
-        let sibling = $(element).next();
-        while (sibling.length && sibling.prop('tagName') !== 'H2') {
-          if (sibling.prop('tagName') === 'P') {
-            text += sibling.text().trim() + '\n';
-          }
-          if (sibling.prop('tagName') === 'FIGURE') {
-            const img = sibling.find('img');
-            if (img.length) {
-              image = img.attr('data-src') || img.attr('src'); // get the src or data-src attribute
+        // Extract each recommendation
+        $('h3').each((i, element) => {
+            const header = $(element).text().trim();
+            let text = '';
+            let image = '';
+    
+            // Get the text of the paragraphs following the header
+            let sibling = $(element).next();
+            while (sibling.length && sibling.prop('tagName') !== 'H2') {
+            if (sibling.prop('tagName') === 'P') {
+                text += sibling.text().trim() + '\n';
             }
-          }
-          sibling = sibling.next();
-        }
+            if (sibling.prop('tagName') === 'FIGURE') {
+                const img = sibling.find('img');
+                if (img.length) {
+                image = img.attr('data-src') || img.attr('src'); // get the src or data-src attribute
+                }
+            }
+            sibling = sibling.next();
+            }
+    
+            recommendations.push({ header, text: text.trim(), image });
+        });
   
-        recommendations.push({ header, text: text.trim(), image });
-      });
-  
-      return recommendations;
+        return recommendations;
     } catch (error: any) {
-      console.error(`Error fetching the webpage: ${error.message}`);
-      return [];
+        console.error(`Error fetching the webpage: ${error.message}`);
+        return [];
     }
-  }
+}
   
 
 // app.get('/scrape', async (req: Request, res: Response) => {
