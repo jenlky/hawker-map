@@ -139,6 +139,11 @@ a {
   }
 }
 
+.food-list-links {
+  color: blue;
+  text-decoration: underline;
+}
+
 .food-list-items {
   margin-bottom: 1rem;
 
