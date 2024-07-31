@@ -6,14 +6,26 @@ import axios from 'axios'
 const app = express();
 app.use(cors())
 
-app.get('/google/search', async (req: Request, res: Response) => {
-    const url = `https://www.google.com/search?q=${encodeURIComponent(req.query.name)}`;
+app.get('/google', async (req: Request, res: Response) => {
+    // Fetch results for page 1 and page 2
+    const page1Results = await scrapeGoogle(req.query.query, 0);  // Page 1 (start = 0)
+    const page2Results = await scrapeGoogle(req.query.query, 10); // Page 2 (start = 10)
+
+    // Combine results from both pages
+    const combinedResults = [...page1Results, ...page2Results];
+
+    console.log(combinedResults);
+    return res.status(200).json(combinedResults);
+})
+
+async function scrapeGoogle(query: any, start = 0) {
+    const url = `https://www.google.com/search?q=${encodeURIComponent(query)}&start=${start}`;
     const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
     
     try {
         const googleResults = await fetch(url, {
             headers: {
-            "User-Agent": ua,
+                "User-Agent": ua,
             },
         })
             .then(res => res.text())
@@ -41,12 +53,12 @@ app.get('/google/search', async (req: Request, res: Response) => {
             return
         }))
         console.log('results', results);
-        return res.status(200).json(results)
+        return results
     } catch (error: any) {
         console.error(`Error fetching Google search results: ${error.message}`);
         return [];
     }
-})
+}
 
 async function scrapeSethLui(url: string) {
     const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
