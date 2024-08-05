@@ -79,7 +79,7 @@ async function scrapeSethLui(url: string) {
   
         // Extract the date
         const date = $('time.entry-date').attr('datetime');
-        recommendations.push({ date });
+        recommendations.push({ date, website: "Seth Lui" });
   
         // Extract each recommendation
         $('h2').each((i, element) => {
@@ -125,7 +125,7 @@ async function scrapeEatbook(url: string) {
     
         // Extract the date
         const date = $('meta[property="article:published_time"]').attr('content');
-        recommendations.push({ date })
+        recommendations.push({ date, website: "Eatbook" })
 
         // Extract each recommendation
         $('h3').each((i, element) => {
