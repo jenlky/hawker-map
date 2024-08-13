@@ -131,7 +131,7 @@ async function scrapeEatbook(url: string) {
         $('h3').each((i, element) => {
             const header = $(element).text().trim();
             let text = '';
-            let image = '';
+            let image: any = '';
     
             // Get the text of the paragraphs following the header
             let sibling = $(element).next();
@@ -142,7 +142,7 @@ async function scrapeEatbook(url: string) {
             if (sibling.prop('tagName') === 'FIGURE') {
                 const img = sibling.find('img');
                 if (img.length) {
-                image = img.attr('data-src') || img.attr('src'); // get the src or data-src attribute
+                    image = img.attr('data-src') || img.attr('src'); // get the src or data-src attribute
                 }
             }
             sibling = sibling.next();
