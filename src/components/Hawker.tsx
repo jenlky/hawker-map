@@ -14,6 +14,7 @@ export default function Hawker ({ hawker, foodRecommendations }: { hawker: any, 
         <h2>Food recommendations</h2>
       </div>
       <div className="food-list">
+        {foodRecommendations.length === 0 && <p>No food recommendations found from Seth Lui or Eatbook!</p>}
         {foodRecommendations[0]?.length > 0 && foodRecommendations[0]?.map((record: any, index: number) => {
           return (
             <div key={record?.header}>
