@@ -31,7 +31,7 @@ async function scrapeGoogle(query: any, start = 0) {
             .then(res => res.text())
             .then(html => {
                 const $ = cheerio.load(html);
-                const searchResults = [...$(".LC20lb")].map(e => {
+                const searchResults = [...$(".LC20lb")].map((e: any) => {
                     return {
                         title: $(e).text().trim(),
                         link: e.parentNode.attribs.href,
