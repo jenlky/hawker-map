@@ -7,7 +7,6 @@ import { useState } from "react";
 import Hawker from "./Hawker";
 
 export default function SimpleMap({ data, location, setDisplayWhichHawker, setFoodRecommendations }: { data: any, location: any, setDisplayWhichHawker: any, setFoodRecommendations: any }) {
-  console.log(data)
   const today = new Date()
   const quarter = Math.floor((today.getMonth() + 3) / 3)
 
