@@ -9,7 +9,7 @@ const options: any = {
 function FoodRecommendations ({index, record}: {index: any, record: any}) {
   if (index === 0) {
     return (
-      <li key={index}>
+      <li key={index} className="food-list-items">
         <h3>{index === 0 && record?.website}</h3>
         <p>{index === 0 && new Date(record?.date).toLocaleDateString('en-GB', options)}</p>
       </li>
