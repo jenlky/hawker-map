@@ -40,6 +40,7 @@ async function scrapeGoogle(query: any, start = 0) {
                 console.log('searchResults', searchResults);
                 return searchResults
             });
+        console.log('googleResults', googleResults)
 
         const filtered = googleResults.filter(result => result.link.includes('sethlui') || result.link.includes('eatbook'))
         console.log('filtered', filtered);
@@ -55,6 +56,7 @@ async function scrapeGoogle(query: any, start = 0) {
         console.log('results', results);
         return results
     } catch (error: any) {
+        console.log(error)
         console.error(`Error fetching Google search results: ${error.message}`);
         return [];
     }
