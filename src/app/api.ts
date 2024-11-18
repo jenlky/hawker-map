@@ -44,7 +44,7 @@ export const API = {
   },
   google: async function (name: any) {
     try {
-      const url = `${process.env.API_URL}/google?query=${name}`
+      const url = `http://localhost:4000/google?query=${name}`
       const response = await fetch(url)
       return response
     } catch (error: any) {
