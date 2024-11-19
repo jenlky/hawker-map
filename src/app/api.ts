@@ -44,9 +44,8 @@ export const API = {
   },
   google: async function (name: any) {
     try {
-      const domain = process.env.ENV === 'LOCAL' ? process.env.LOCAL_API_URL : process.env.PROD_API_URL
+      const domain = process.env.NEXT_PUBLIC_ENV === 'LOCAL' ? process.env.NEXT_PUBLIC_LOCAL_API_URL : process.env.NEXT_PUBLIC_PROD_API_URL
       const url = `${domain}/google?query=${name}`
-      console.log('url', url)
       const response = await fetch(url)
       return response
     } catch (error: any) {
