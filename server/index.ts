@@ -7,7 +7,8 @@ import 'dotenv/config'
 const app = express();
 app.use(cors())
 
-app.get('/google', async (req: Request, res: Response) => {
+const router = express.Router()
+router.get('/google', async (req: Request, res: Response) => {
     // Fetch results for page 1 and page 2
     const page1Results = await scrapeGoogle(req.query.query, 0);  // Page 1 (start = 0)
     const page2Results = await scrapeGoogle(req.query.query, 10); // Page 2 (start = 10)
@@ -208,5 +209,7 @@ async function scrapeEatbook(url: string) {
 //     return res.status(200).json(recommendations)
 // })
 
-const url = process.env.NEXT_PUBLIC_ENV === 'PROD' ? `https://singaporehawker.netlify.app/api` : 4000
+app.use('/api', router)
+
+const url = process.env.NEXT_PUBLIC_ENV === 'PROD' ? `https://singaporehawker.netlify.app` : 4000
 app.listen(url);
