@@ -211,5 +211,5 @@ async function scrapeEatbook(url: string) {
 
 app.use('/api', router)
 
-const url = process.env.NEXT_PUBLIC_ENV === 'PROD' ? `https://singaporehawker.netlify.app` : 4000
+const url = process.env.NEXT_PUBLIC_ENV === 'PROD' ? `https://singaporehawker.netlify.app/api` : 4000
 app.listen(url);
