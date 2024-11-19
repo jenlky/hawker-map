@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cheerio from "cheerio";
 import cors from 'cors'
 import axios from 'axios'
+import 'dotenv/config'
 
 const app = express();
 app.use(cors())
@@ -159,7 +160,6 @@ async function scrapeEatbook(url: string) {
         return [];
     }
 }
-  
 
 // app.get('/scrape', async (req: Request, res: Response) => {
 //     console.log('req', req.query.name)
@@ -207,5 +207,6 @@ async function scrapeEatbook(url: string) {
 //     await browser.close();
 //     return res.status(200).json(recommendations)
 // })
-const url = process.env.ENV === "DEV" ? 4000 : `${process.env.PROD_API_URL}`
+
+const url = process.env.ENV === 'PROD' ? `https://singaporehawker.netlify.app/api` : 4000
 app.listen(url);
