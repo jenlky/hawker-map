@@ -208,5 +208,5 @@ async function scrapeEatbook(url: string) {
 //     return res.status(200).json(recommendations)
 // })
 
-const url = process.env.ENV === 'PROD' ? `https://singaporehawker.netlify.app/api` : 4000
+const url = process.env.NEXT_PUBLIC_ENV === 'PROD' ? `https://singaporehawker.netlify.app/api` : 4000
 app.listen(url);
