@@ -40,7 +40,6 @@ async function scrapeGoogle(query: any, start = 0) {
                       link: e.parentNode.attribs.href,
                   }
               });
-              console.log('searchResults', searchResults);
               return searchResults
           });
       console.log('googleResults', googleResults)
@@ -75,9 +74,11 @@ async function scrapeSethLui(url: string) {
               "User-Agent": ua,
           },
       });
+      console.log('html', html)
 
       // Load the HTML into Cheerio
       const $ = cheerio.load(html);
+      console.log('$', $)
 
       // Array to store the recommendations
       const recommendations: any = [];
