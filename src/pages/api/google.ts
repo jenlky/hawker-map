@@ -113,6 +113,7 @@ async function scrapeSethLui(url: string) {
 
       return recommendations;
   } catch (error: any) {
+    console.log('error', error)
       console.error(`Error fetching the webpage: ${error.message}`);
       return [];
   }
