@@ -68,14 +68,8 @@ async function scrapeSethLui(url: string) {
   const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 
   try {
-    const proxy = {
-        host: '23.247.136.252',
-        port: 80
-    }
-
     // Fetch the HTML of the webpage
     const { data: html } = await axios.get(url, {
-        proxy,
         headers: {
             "User-Agent": ua,
         },
