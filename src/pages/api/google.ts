@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios'
 import * as cheerio from 'cheerio';
+import puppeteer from "puppeteer";
 
 export default async function handler(
   req: NextApiRequest,
@@ -49,7 +50,7 @@ async function scrapeGoogle(query: any, start = 0) {
 
       const results = await Promise.all(filtered.map(async result => {
           if (result.link.includes('sethlui')) {
-              return await scrapeSethLui(result.link)
+              return await scrapeSethLuiPuppeteer(result.link)
           } else if (result.link.includes('eatbook')) {
               return await scrapeEatbook(result.link)
           }
@@ -118,6 +119,54 @@ async function scrapeSethLui(url: string) {
       return [];
   }
 }
+
+async function scrapeSethLuiPuppeteer(url: string) {
+    const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+  
+    try {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+    
+        await page.setUserAgent(ua);
+        await page.goto(url, { waitUntil: 'load', timeout: 0 });
+    
+        const content = await page.content();
+        const $ = cheerio.load(content);
+    
+        const recommendations = [];
+        const date = $('time.entry-date').attr('datetime');
+        recommendations.push({ date, website: 'Seth Lui' });
+    
+        $('h2').each((i, element) => {
+            const header = $(element).text().trim();
+            let text = '';
+            let image: string | undefined = '';
+    
+            let sibling = $(element).next();
+            while (sibling.length && sibling.prop('tagName') !== 'H2') {
+                if (sibling.prop('tagName') === 'P') {
+                    text += sibling.text().trim() + '\n';
+                }
+                if (sibling.prop('tagName') === 'FIGURE') {
+                    const img = sibling.find('img');
+                    if (img.length) {
+                        image = img.attr('src');
+                    }
+                }
+                sibling = sibling.next();
+            }
+    
+            recommendations.push({ header, text: text.trim(), image });
+        });
+    
+        await browser.close();
+        return recommendations;
+    } catch (error: any) {
+      console.log('error', error)
+        console.error(`Error fetching the webpage: ${error.message}`);
+        return [];
+    }
+  }
 
 async function scrapeEatbook(url: string) {
   try {
