@@ -6,7 +6,7 @@
     "dev": "next dev",
     "prebuild": "cd server && npm install",
     "build": "next build",
-    "postbuild": "npx @puppeteer/browsers install chrome@stable",
+    "postbuild": "cd .. && npx @puppeteer/browsers install chrome",
     "start": "next start",
     "lint": "next lint"
   },
