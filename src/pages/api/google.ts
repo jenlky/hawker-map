@@ -72,6 +72,10 @@ async function scrapeSethLui(url: string) {
       const { data: html } = await axios.get(url, {
           headers: {
               "User-Agent": ua,
+              "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+              "Accept-Language": "en-US,en;q=0.9",
+              "Connection": "keep-alive",
+              "Referer": "https://www.google.com/",
           },
       });
       console.log('html', html)
