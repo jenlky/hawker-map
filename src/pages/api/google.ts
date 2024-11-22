@@ -69,8 +69,8 @@ async function scrapeSethLui(url: string) {
 
   try {
     const proxy = {
-        host: '13.212.136.79',
-        port: 3128
+        host: '23.247.136.252',
+        port: 80
     }
 
     // Fetch the HTML of the webpage
