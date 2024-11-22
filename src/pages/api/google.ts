@@ -68,16 +68,22 @@ async function scrapeSethLui(url: string) {
   const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 
   try {
+    const proxy = {
+        host: '13.212.136.79',
+        port: 3128
+    }
+
     // Fetch the HTML of the webpage
-      const { data: html } = await axios.get(url, {
-          headers: {
-              "User-Agent": ua,
-              "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-              "Accept-Language": "en-US,en;q=0.9",
-              "Connection": "keep-alive",
-              "Referer": "https://www.google.com/",
-          },
-      });
+    const { data: html } = await axios.get(url, {
+        proxy,
+        headers: {
+            "User-Agent": ua,
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Connection": "keep-alive",
+            "Referer": "https://www.google.com/",
+        },
+    });
       console.log('html', html)
 
       // Load the HTML into Cheerio
