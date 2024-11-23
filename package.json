@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "cd server && npm install",
+    "prebuild": "cd server && npm install && cd .. && npx puppeteer browsers install chrome",
     "build": "next build",
-    "postbuild": "cd .. && npx puppeteer browsers install chrome",
     "start": "next start",
     "lint": "next lint"
   },
