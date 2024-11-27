@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "cd server && npm install && cd .. && mkdir .puppeteer-cache && PUPPETEER_CACHE_DIR=$(pwd)/.puppeteer-cache npx puppeteer browsers install chrome",
-    "build": "next build",
+    "build": "echo $HOME && ls $HOME/.puppeteer-cache/chrome && next build",
     "start": "next start",
     "lint": "next lint"
   },
