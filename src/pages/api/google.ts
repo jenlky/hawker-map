@@ -124,7 +124,11 @@ async function scrapeSethLuiPuppeteer(url: string) {
     const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
   
     try {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            executablePath: '${pwd}/.puppeteer-cache/chrome', // Path to Chrome
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'], // Required for Netlify
+        });
         const page = await browser.newPage();
     
         await page.setUserAgent(ua);
