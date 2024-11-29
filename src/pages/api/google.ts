@@ -125,7 +125,7 @@ async function scrapeSethLuiPuppeteer(url: string) {
   
     try {
         const browser = await puppeteer.launch({
-            executablePath: `${process.env.HOME}/.puppeteer-cache/chrome`, // Path to Chrome
+            executablePath: `${process.env.WEBSCRAPE}/.puppeteer-cache/chrome`, // Path to Chrome
             headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox'], // Required for Netlify
         });
