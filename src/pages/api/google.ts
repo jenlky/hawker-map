@@ -123,14 +123,14 @@ async function scrapeSethLui(url: string) {
 
 async function scrapeSethLuiPuppeteer(url: string) {
     const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
-    const executablePath = await chromium.executablePath
 
     try {
         // `${process.env.WEBSCRAPE}/.puppeteer-cache/chrome`
+        //  ['--no-sandbox', '--disable-setuid-sandbox']
         const browser = await chromium.puppeteer.launch({
-            executablePath: executablePath,
+            executablePath: await chromium.executablePath,
             headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'], // Required for Netlify
+            args: chromium.args,
         });
         const page = await browser.newPage();
     
