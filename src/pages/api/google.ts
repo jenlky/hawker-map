@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios'
 import * as cheerio from 'cheerio';
-import puppeteer from "puppeteer";
-import chromium from 'chrome-aws-lambda';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium-min';
 
 export default async function handler(
   req: NextApiRequest,
@@ -127,8 +127,8 @@ async function scrapeSethLuiPuppeteer(url: string) {
     try {
         // `${process.env.WEBSCRAPE}/.puppeteer-cache/chrome`
         //  ['--no-sandbox', '--disable-setuid-sandbox']
-        const browser = await chromium.puppeteer.launch({
-            executablePath: await chromium.executablePath,
+        const browser = await puppeteer.launch({
+            executablePath: await chromium.executablePath(),
             headless: true,
             args: chromium.args,
         });
