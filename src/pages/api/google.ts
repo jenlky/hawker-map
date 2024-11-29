@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios'
 import * as cheerio from 'cheerio';
 import puppeteer from "puppeteer";
+import chromium from 'chrome-aws-lambda';
 
 export default async function handler(
   req: NextApiRequest,
@@ -122,10 +123,12 @@ async function scrapeSethLui(url: string) {
 
 async function scrapeSethLuiPuppeteer(url: string) {
     const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
-  
+    const executablePath = await chromium.executablePath
+
     try {
-        const browser = await puppeteer.launch({
-            executablePath: `${process.env.WEBSCRAPE}/.puppeteer-cache/chrome`, // Path to Chrome
+        // `${process.env.WEBSCRAPE}/.puppeteer-cache/chrome`
+        const browser = await chromium.puppeteer.launch({
+            executablePath: executablePath,
             headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox'], // Required for Netlify
         });
