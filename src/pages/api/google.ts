@@ -138,13 +138,17 @@ async function scrapeSethLuiPuppeteer(url: string) {
         await page.goto(url, { waitUntil: 'load', timeout: 0 });
     
         const content = await page.content();
+        console.log(content)
+
         const $ = cheerio.load(content);
+        console.log($)
     
         const recommendations = [];
         const date = $('time.entry-date').attr('datetime');
         recommendations.push({ date, website: 'Seth Lui' });
     
         $('h2').each((i, element) => {
+            console.log(element)
             const header = $(element).text().trim();
             let text = '';
             let image: string | undefined = '';
